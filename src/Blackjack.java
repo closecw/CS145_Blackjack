@@ -31,25 +31,25 @@ public class Blackjack extends Application {
     }
 
     public void createCards(Group root) {
-        dealerC1 = new Rectangle(25, 50, 110, 150);
+        dealerC1 = new Rectangle(25, 80, 125, 180);
         dealerC1.setFill(Color.WHITE);
-        dealerC2 = new Rectangle(155, 50, 110, 150);
+        dealerC2 = new Rectangle(170, 80, 125, 180);
         dealerC2.setFill(Color.WHITE);
-        dealerC3 = new Rectangle(285, 50, 110, 150);
+        dealerC3 = new Rectangle(315, 80, 125, 180);
         dealerC3.setFill(Color.WHITE);
-        dealerC4 = new Rectangle(415, 50, 110, 150);
+        dealerC4 = new Rectangle(460, 80, 125, 180);
         dealerC4.setFill(Color.WHITE);
-        dealerC5 = new Rectangle(545, 50, 110, 150);
+        dealerC5 = new Rectangle(605, 80, 125, 180);
         dealerC5.setFill(Color.WHITE);
-        playerC1 = new Rectangle(25, 400, 110, 150);
+        playerC1 = new Rectangle(25, 370, 125, 180);
         playerC1.setFill(Color.WHITE);
-        playerC2 = new Rectangle(155, 400, 110, 150);
+        playerC2 = new Rectangle(170, 370, 125, 180);
         playerC2.setFill(Color.WHITE);
-        playerC3 = new Rectangle(285, 400, 110, 150);
+        playerC3 = new Rectangle(315, 370, 125, 180);
         playerC3.setFill(Color.WHITE);
-        playerC4 = new Rectangle(415, 400, 110, 150);
+        playerC4 = new Rectangle(460, 370, 125, 180);
         playerC4.setFill(Color.WHITE);
-        playerC5 = new Rectangle(545, 400, 110, 150);
+        playerC5 = new Rectangle(605, 370, 125, 180);
         playerC5.setFill(Color.WHITE);
         root.getChildren().addAll(dealerC1, dealerC2, dealerC3, dealerC4, dealerC5, playerC1, playerC2, playerC3, playerC4, playerC5);
     }
