@@ -19,7 +19,8 @@ public class Blackjack extends Application {
         Group root = new Group();
         Scene scene = new Scene(root, 500, 500);
         Rectangle r1 = new Rectangle(50, 50, 50, 50);
-        root.getChildren().add(r1);
+        Rectangle r2 = new Rectangle(125, 125, 125, 125);
+        root.getChildren().addAll(r1, r2);
         stage.setTitle("Blackjack");
         stage.setScene(scene);
         stage.show();
