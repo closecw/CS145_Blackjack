@@ -15,23 +15,24 @@ public class Blackjack extends Application {
     private TextField playerScore, dealerScore;
     private Text winText, loseText;
     private Rectangle dealerC1, dealerC2, dealerC3, dealerC4, dealerC5, playerC1, playerC2, playerC3, playerC4, playerC5, sideBarRect;
+    private Font arial = new Font("Arial", 26);
 
     @Override
     public void start(Stage stage) {
         Group root = new Group();
         Scene scene = new Scene(root, 1000, 700);
         scene.setFill(Color.web("#4fa72e"));
-        createCards();
-        createButtons();
-        sideBarRect = new Rectangle(750, 0, 455, 700);
+        createCards(root);
+        createBottom(root);
+        sideBarRect = new Rectangle(750, 0, 250, 700);
         sideBarRect.setFill(Color.web("#156183"));
-        root.getChildren().addAll(dealerC1, dealerC2, dealerC3, dealerC4, dealerC5, playerC1, playerC2, playerC3, playerC4, playerC5, sideBarRect);
+        root.getChildren().addAll(sideBarRect);
         stage.setTitle("Blackjack");
         stage.setScene(scene);
         stage.show();
     }
 
-    public void createCards() {
+    public void createCards(Group root) {
         dealerC1 = new Rectangle(25, 50, 110, 150);
         dealerC1.setFill(Color.WHITE);
         dealerC2 = new Rectangle(155, 50, 110, 150);
@@ -52,10 +53,25 @@ public class Blackjack extends Application {
         playerC4.setFill(Color.WHITE);
         playerC5 = new Rectangle(545, 400, 110, 150);
         playerC5.setFill(Color.WHITE);
+        root.getChildren().addAll(dealerC1, dealerC2, dealerC3, dealerC4, dealerC5, playerC1, playerC2, playerC3, playerC4, playerC5);
     }
 
-    public void createButtons() {
-
+    public void createBottom(Group root) {
+        hitButton = new Button("Hit");
+        hitButton.setPrefSize(250, 50);
+        hitButton.setStyle("-fx-background-color: #c2f1c8; ");
+        hitButton.setTextFill(Color.BLACK);
+        hitButton.setFont(arial);
+        hitButton.setLayoutX(250);
+        hitButton.setLayoutY(650);
+        standButton = new Button("Stand");
+        standButton.setPrefSize(250, 50);
+        standButton.setStyle("-fx-background-color: #ff0002; ");
+        standButton.setTextFill(Color.WHITE);
+        standButton.setFont(arial);
+        standButton.setLayoutX(500);
+        standButton.setLayoutY(650);
+        root.getChildren().addAll(hitButton, standButton);
     }
 
     public static void main(String[] args) {
