@@ -24,9 +24,7 @@ public class Blackjack extends Application {
         scene.setFill(Color.web("#4fa72e"));
         createCards(root);
         createBottom(root);
-        sideBarRect = new Rectangle(750, 0, 250, 700);
-        sideBarRect.setFill(Color.web("#156183"));
-        root.getChildren().addAll(sideBarRect);
+        createSideBar(root);
         stage.setTitle("Blackjack");
         stage.setScene(scene);
         stage.show();
@@ -57,6 +55,7 @@ public class Blackjack extends Application {
     }
 
     public void createBottom(Group root) {
+        //TODO: Create event handlers for buttons, once logic is in, continuously update score shown
         hitButton = new Button("Hit");
         hitButton.setPrefSize(250, 50);
         hitButton.setStyle("-fx-background-color: #c2f1c8; ");
@@ -71,7 +70,24 @@ public class Blackjack extends Application {
         standButton.setFont(arial);
         standButton.setLayoutX(500);
         standButton.setLayoutY(650);
-        root.getChildren().addAll(hitButton, standButton);
+        playerScore = new TextField("Your score: " /* + player.getScore()*/);
+        playerScore.setFont(arial);
+        playerScore.setPrefSize(250, 50);
+        playerScore.setLayoutX(0);
+        playerScore.setLayoutY(650);
+        dealerScore = new TextField("Dealer score: "/* + dealer.getScore()*/);
+        dealerScore.setFont(arial);
+        dealerScore.setPrefSize(250, 50);
+        dealerScore.setLayoutX(750);
+        dealerScore.setLayoutY(650);
+        root.getChildren().addAll(hitButton, standButton, playerScore, dealerScore);
+    }
+
+    public void createSideBar(Group root) {
+        //TODO: Create win/lose message, again/exit buttons, event handlers
+        sideBarRect = new Rectangle(750, 0, 250, 650);
+        sideBarRect.setFill(Color.web("#156183"));
+        root.getChildren().addAll(sideBarRect);
     }
 
     public static void main(String[] args) {
