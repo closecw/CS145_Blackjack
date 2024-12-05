@@ -1,62 +1,74 @@
-import java.util.ArrayList;
+import java.util.*;
 
-public class Hand {
+public class Hand implements Comparable<Hand> {
     private ArrayList<Card> hand;
     private int totalValue;
     private boolean stood;
 
-    private int getValue() {
+
+    public Hand(){
+        hand = new ArrayList<Card>();
+        totalValue = 0;
+        boolean stood = false;
+    }
+
+    public int getValue(){
         return totalValue;
     }
 
-    private void setValue(int value) {
-        totalValue = value;
+    private void setValue(){
+        totalValue = 0;
+        int aceCount = 0;
+        for (Card card: this.hand) {
+            Rank rank = card.getRank();
+            if (rank.ordinal() < 9) {
+                totalValue += rank.ordinal() +2;
+            }
+            else if (rank.ordinal() == 12) {
+                totalValue += 11;
+                aceCount++;
+            }
+            else {
+                totalValue += 10;
+            }
+        }
+        while (aceCount > 0 && totalValue > 21){
+            totalValue -= 10;
+            aceCount--;
+        }
+        if (totalValue > 21){
+            stood = true;
+            totalValue = 0;
+        }
     }
 
-    private int compareTo(Hand hand) {
+    public void stand(){
+        stood = true;
+    }
+
+    public boolean getStand(){
+        return stood;
+    }
+
+    public int compareTo(Hand other){
+        if (totalValue < other.getValue()) {
+            return -1;
+        }
+        else if(totalValue > other.getValue()) {
+            return 1;
+        }
         return 0;
     }
 
-    public void hit(ArrayList<Card> deck) {
-        return;
-    }
-
-    public void stand() {
-        return;
-    }
-
-
-
-    /*private ArrayList<PokerCard> cards;
-    private String scoreString;
-
-    public Hand() {
-        cards = new ArrayList<>();
-    }
-
-    public void addCard(PokerCard card) {
-        cards.add(card);
-    }
-
-    public int getCardCount() {
-        return cards.size();
-    }
-
-    public boolean isPair() {
-        int count = 0;
-        for(PokerCard card : cards) {
-            //if()
+    public Card hit(ArrayList<Card> deck){
+        if(!stood) {
+            Random random = new Random();
+            int rand = random.nextInt(0,deck.size());
+            Card card = deck.remove(rand);
+            hand.add(card);
+            this.setValue();
+            return card;
         }
-        return false;
+        return null;
     }
-
-    
-
-    public String toString() {
-        StringBuilder indivCards = new StringBuilder();
-        for(PokerCard card : cards) {
-            indivCards.append(card.toString() + " ");
-        }
-        return "Hand: " + indivCards + ", Score: " + scoreString;
-    }*/
 }

@@ -1,14 +1,17 @@
-import java.util.ArrayList;
+import java.util.*;
 
-public class DealerHand extends Hand {
-    private ArrayList<Card> hand;
-    private int totalValue;
-    private boolean stood;
+public class DealerHand extends Hand{
+
+    public DealerHand(){
+        super();
+    }
 
     @Override
-    public void hit(ArrayList<Card> deck) {
-        if(this.totalValue > 17) {
-            stood = true;
+    public Card hit(ArrayList<Card> deck) {
+        Card card = super.hit(deck);
+        if (super.getValue()>16) {
+            super.stand();
         }
+        return card;
     }
 }
