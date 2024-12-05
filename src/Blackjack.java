@@ -9,9 +9,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.text.*;
 
+
 /*
-    @Version 1.0, this is the base. I will increment it by .01 each time I push a new change
+* @Author Carter Close
+* @Version 1.11
  */
+
 public class Blackjack extends Application {
     private Button hitButton, standButton;
     private TextField playerScore, dealerScore;
