@@ -107,6 +107,18 @@ public class Blackjack extends Application {
         root.getChildren().addAll(sideBarRect);
     }
 
+    // deck making code may need some tweaks but base logic works
+    public static ArrayList<Card> makeDeck(){
+        ArrayList<Card> deck = new ArrayList<Card>();
+        for(Suit s: Suit.values()){
+            for(Rank r: Rank.values()){
+                Card card = new Card(s,r);
+                deck.add(card);
+            }
+        }
+        return deck;
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
