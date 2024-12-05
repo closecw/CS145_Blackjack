@@ -63,7 +63,7 @@ public class Hand implements Comparable<Hand> {
     public Card hit(ArrayList<Card> deck){
         if(!stood) {
             Random random = new Random();
-            int rand = random.nextInt(0,deck.size());
+            int rand = random.nextInt(deck.size());
             Card card = deck.remove(rand);
             hand.add(card);
             this.setValue();
