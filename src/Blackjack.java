@@ -9,6 +9,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.text.*;
 
+import java.util.ArrayList;
+
 
 /*
 * @Author Carter Close
@@ -16,11 +18,17 @@ import javafx.scene.text.*;
  */
 
 public class Blackjack extends Application {
+    //JavaFX elements
     private Button hitButton, standButton;
     private TextField playerScore, dealerScore;
     private Text winText, loseText;
     private Rectangle dealerC1, dealerC2, dealerC3, dealerC4, dealerC5, playerC1, playerC2, playerC3, playerC4, playerC5, sideBarRect;
     private Font arial = new Font("Arial", 26);
+    //Regular elements
+    private DealerHand dealerHand;
+    private Hand playerHand;
+    private ArrayList<Card>deck;
+
 
     @Override
     public void start(Stage stage) {
@@ -60,7 +68,7 @@ public class Blackjack extends Application {
     }
 
     public void createBottom(Group root) {
-        //TODO: Create event handlers for buttons, once logic is in, continuously update score shown
+        //TODO: Continuously update score shown
         hitButton = new Button("Hit");
         hitButton.setPrefSize(250, 50);
         hitButton.setStyle("-fx-background-color: #c2f1c8; ");
@@ -108,8 +116,8 @@ public class Blackjack extends Application {
     }
 
     // deck making code may need some tweaks but base logic works
-    public static ArrayList<Card> makeDeck(){
-        ArrayList<Card> deck = new ArrayList<Card>();
+    public static ArrayList<Card> makeDeck(ArrayList<Card>deck){
+        deck = new ArrayList<Card>();
         for(Suit s: Suit.values()){
             for(Rank r: Rank.values()){
                 Card card = new Card(s,r);
@@ -117,6 +125,26 @@ public class Blackjack extends Application {
             }
         }
         return deck;
+    }
+
+    public void reset() {
+        return;
+    }
+
+    public boolean otherHand() {
+        return true;
+    }
+
+    public void hit() {
+        return;
+    }
+
+    public void stand() {
+        return;
+    }
+
+    public void winner(Hand playerHand, Hand dealerHand) {
+        return;
     }
 
     public static void main(String[] args) {
