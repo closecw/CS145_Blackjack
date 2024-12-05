@@ -1,4 +1,6 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -63,6 +65,12 @@ public class Blackjack extends Application {
         hitButton.setFont(arial);
         hitButton.setLayoutX(250);
         hitButton.setLayoutY(650);
+        hitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                //TODO: Add action listener
+            }
+        });
         standButton = new Button("Stand");
         standButton.setPrefSize(250, 50);
         standButton.setStyle("-fx-background-color: #ff0002; ");
@@ -70,6 +78,12 @@ public class Blackjack extends Application {
         standButton.setFont(arial);
         standButton.setLayoutX(500);
         standButton.setLayoutY(650);
+        standButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                //TODO: Add action listener
+            }
+        });
         playerScore = new TextField("Your score: " /* + player.getScore()*/);
         playerScore.setFont(arial);
         playerScore.setPrefSize(250, 50);
