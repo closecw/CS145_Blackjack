@@ -135,15 +135,24 @@ public class Blackjack extends Application {
         return true;
     }
 
-    public void hit() {
-        return;
+    public Card hit(Hand hand,ArrayList<Card> deck) {
+        return hand.hit(deck);
     }
 
-    public void stand() {
+    public void stand(Hand player) {
+        player.stand();
         return;
     }
 
     public void winner(Hand playerHand, Hand dealerHand) {
+        int result = playerHand.compareTo(dealerHand);
+        if(result > 0){
+            //winlogic/result
+        }else if(result < 0){
+            //loselogic/result
+        }else if(result == 0){
+            //tie logic/result
+        }
         return;
     }
 
