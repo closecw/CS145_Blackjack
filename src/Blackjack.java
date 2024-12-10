@@ -13,9 +13,9 @@ import javafx.scene.text.*;
 import java.util.ArrayList;
 
 
-/*
+/**
 * @Author Carter Close + Luke Kedrowski
-* @Version 1.11
+* @Version 1.7
  */
 
 public class Blackjack extends Application {
