@@ -19,16 +19,19 @@ import java.util.ArrayList;
 
 public class Blackjack extends Application {
     //JavaFX elements
+    private Text dealerT1, dealerT2, dealerT3, dealerT4, dealerT5, playerT1, playerT2, playerT3, playerT4, playerT5;
     private Button hitButton, standButton;
     private TextField playerScore, dealerScore;
     private Text winText, loseText;
     private Rectangle dealerC1, dealerC2, dealerC3, dealerC4, dealerC5, playerC1, playerC2, playerC3, playerC4, playerC5, sideBarRect;
     private Font arial = new Font("Arial", 26);
     //Regular elements
-    private DealerHand dealerHand;
-    private Hand playerHand;
+    private DealerHand dealerHand = new DealerHand();
+    private Hand playerHand = new Hand();
     private ArrayList<Card>deck;
-
+    private Text[] dealerText = new Text[5];
+    private Text[] playerText = new Text[5];
+    private int hitCount = 0;
 
     @Override
     public void start(Stage stage) {
@@ -42,6 +45,7 @@ public class Blackjack extends Application {
         stage.setTitle("Blackjack");
         stage.setScene(scene);
         stage.show();
+        makeDeck();
     }
 
     public void createCards(Group root) {
@@ -113,6 +117,10 @@ public class Blackjack extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 //TODO: Add action listener
+                if(!playerHand.getStand()){
+                    hit(playerHand,deck);
+                }
+                playerScore.setText("Your score: "  + playerHand.getValue());
             }
         });
         standButton = new Button("Stand");
@@ -126,6 +134,7 @@ public class Blackjack extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 //TODO: Add action listener
+                playerHand.stand();
             }
         });
         playerScore = new TextField("Your score: " /* + player.getScore()*/);
@@ -149,7 +158,7 @@ public class Blackjack extends Application {
     }
 
     // deck making code may need some tweaks but base logic works
-    public static ArrayList<Card> makeDeck(ArrayList<Card>deck){
+    public void makeDeck(ArrayList<Card>deck){
         deck = new ArrayList<Card>();
         for(Suit s: Suit.values()){
             for(Rank r: Rank.values()){
@@ -157,24 +166,16 @@ public class Blackjack extends Application {
                 deck.add(card);
             }
         }
-        return deck;
     }
 
-    public void reset() {
-        return;
-    }
+    public void hit(Hand hand,ArrayList<Card> deck) {
+        Card drawn = hand.hit(deck);
 
-    public boolean otherHand() {
-        return true;
-    }
-
-    public Card hit(Hand hand,ArrayList<Card> deck) {
-        return hand.hit(deck);
-    }
-
-    public void stand(Hand player) {
-        player.stand();
-        return;
+        playerText[hitCount].setText(drawn.toString());
+        hitCount++;
+        if(hitCount >= 5){
+            playerHand.stand();
+        }
     }
 
     public void winner(Hand playerHand, Hand dealerHand) {
