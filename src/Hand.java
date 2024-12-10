@@ -30,7 +30,9 @@ public class Hand implements Comparable<Hand> {
     }
 
     /**
-     * Standard setter for the value of the hand
+     * Setter for the value of the hand.
+     * Deals with aces using an aceCount, this will automatically handle an ace switching from an 11 to a 1.
+     * Also deals with a bust.
      */
     private void setValue() {
         totalValue = 0;
@@ -54,7 +56,6 @@ public class Hand implements Comparable<Hand> {
         }
         if (totalValue > 21){
             stood = true;
-            totalValue = 0;
         }
     }
 
