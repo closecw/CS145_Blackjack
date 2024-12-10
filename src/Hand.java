@@ -1,22 +1,38 @@
 import java.util.*;
 
+/**
+ * Class for creating the hand for the player
+ * Includes standard getters and setters as well as the methods for hitting and standing
+ * @author Carter Close, Luke Kedrowski
+ * @version 1.0
+ */
 public class Hand implements Comparable<Hand> {
     private ArrayList<Card> hand;
     private int totalValue;
     private boolean stood;
 
-
-    public Hand(){
+    /**
+     * Constructor for a Hand object
+     * Sets the hand to be an ArrayList of Cards, the total value to be 0, and stood to false
+     */
+    public Hand() {
         hand = new ArrayList<Card>();
         totalValue = 0;
         boolean stood = false;
     }
 
+    /**
+     * Standard getter for the value of the hand
+     * @return total value of the hand
+     */
     public int getValue(){
         return totalValue;
     }
 
-    private void setValue(){
+    /**
+     * Standard setter for the value of the hand
+     */
+    private void setValue() {
         totalValue = 0;
         int aceCount = 0;
         for (Card card: this.hand) {
@@ -42,15 +58,27 @@ public class Hand implements Comparable<Hand> {
         }
     }
 
+    /**
+     * Method for standing, just changes the stood boolean to true
+     */
     public void stand(){
         stood = true;
     }
 
-    public boolean getStand(){
+    /**
+     * Standard getter for the stood boolean
+     * @return the value of stood
+     */
+    public boolean getStand() {
         return stood;
     }
 
-    public int compareTo(Hand other){
+    /**
+     * CompareTo method for comparing the value of hands
+     * @param other the object to be compared.
+     * @return the comparison value of the two hands
+     */
+    public int compareTo(Hand other) {
         if (totalValue < other.getValue()) {
             return -1;
         }
@@ -60,7 +88,12 @@ public class Hand implements Comparable<Hand> {
         return 0;
     }
 
-    public Card hit(ArrayList<Card> deck){
+    /**
+     * Hit method for hitting the deck
+     * @param deck is the deck created in the Blackjack class
+     * @return either a Card object (if hit was good) or null if it wasn't
+     */
+    public Card hit(ArrayList<Card> deck) {
         if(!stood) {
             Random random = new Random();
             int rand = random.nextInt(deck.size());
