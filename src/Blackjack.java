@@ -178,7 +178,6 @@ public class Blackjack extends Application {
      * @param root is the root group so it can be added to the scene
      */
     public void createSideBar(Group root) {
-        //TODO: Create win/lose message, again/exit buttons, event handlers
         sideBarRect = new Rectangle(750, 0, 250, 650);
         sideBarRect.setFill(Color.web("#156183"));
         root.getChildren().addAll(sideBarRect);
