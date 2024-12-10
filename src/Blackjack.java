@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.text.*;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 
 
 /*
-* @Author Carter Close
+* @Author Carter Close + Luke Kedrowski
 * @Version 1.11
  */
 
@@ -28,10 +29,12 @@ public class Blackjack extends Application {
     //Regular elements
     private DealerHand dealerHand = new DealerHand();
     private Hand playerHand = new Hand();
-    private ArrayList<Card>deck;
+    private ArrayList<Card> deck;
     private Text[] dealerText = new Text[5];
     private Text[] playerText = new Text[5];
     private int hitCount = 0;
+    private int dealCount = 0;
+
 
     @Override
     public void start(Stage stage) {
@@ -121,6 +124,14 @@ public class Blackjack extends Application {
                     hit(playerHand,deck);
                 }
                 playerScore.setText("Your score: "  + playerHand.getValue());
+                
+                if(!dealerHand.getStand()){
+                    dealerHit(dealerHand,deck);
+                }
+                dealerScore.setText("Your score: "  + dealerHand.getValue());
+                if(dealerHand.getStand()&&playerHand.getStand()){
+                    winner(playerHand,dealerHand);
+                }
             }
         });
         standButton = new Button("Stand");
@@ -158,23 +169,39 @@ public class Blackjack extends Application {
     }
 
     // deck making code may need some tweaks but base logic works
-    public void makeDeck(ArrayList<Card>deck){
-        deck = new ArrayList<Card>();
+    public void makeDeck(){
+        this.deck = new ArrayList<Card>();
         for(Suit s: Suit.values()){
             for(Rank r: Rank.values()){
                 Card card = new Card(s,r);
                 deck.add(card);
             }
         }
+        return;
     }
+
 
     public void hit(Hand hand,ArrayList<Card> deck) {
         Card drawn = hand.hit(deck);
-
+        if(drawn.getSuit().ordinal()==1||drawn.getSuit().ordinal()==2){
+            playerText[hitCount].setFill(Color.RED);  
+        }
         playerText[hitCount].setText(drawn.toString());
         hitCount++;
         if(hitCount >= 5){
             playerHand.stand();
+        }
+    }
+
+    public void dealerHit(Hand hand,ArrayList<Card> deck) {
+        Card drawn = hand.hit(deck);
+        if(drawn.getSuit().ordinal()==1||drawn.getSuit().ordinal()==2){
+            dealerText[dealCount].setFill(Color.RED);  
+        }
+        dealerText[dealCount].setText(drawn.toString());
+        dealCount++;
+        if(dealCount >= 5){
+            dealerHand.stand();
         }
     }
 
@@ -185,7 +212,7 @@ public class Blackjack extends Application {
         }else if(result < 0){
             //loselogic/result
         }else if(result == 0){
-            //tie logic/result
+            //tie logic/results
         }
         return;
     }
