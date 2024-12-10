@@ -36,6 +36,7 @@ public class Blackjack extends Application {
         Scene scene = new Scene(root, 1000, 700);
         scene.setFill(Color.web("#4fa72e"));
         createCards(root);
+        createCardText(root);
         createBottom(root);
         createSideBar(root);
         stage.setTitle("Blackjack");
@@ -65,6 +66,38 @@ public class Blackjack extends Application {
         playerC5 = new Rectangle(605, 370, 125, 180);
         playerC5.setFill(Color.WHITE);
         root.getChildren().addAll(dealerC1, dealerC2, dealerC3, dealerC4, dealerC5, playerC1, playerC2, playerC3, playerC4, playerC5);
+    }
+
+    public void createCardText(Group root){
+        //kinda gross but as long as set text works it'll do
+            dealerT1 = new Text(55,150,"");
+            dealerText[0] = dealerT1;
+            dealerT2 = new Text(200,150,"");
+            dealerText[1] = dealerT2;
+            dealerT3 = new Text(345,150,"");
+            dealerText[2] = dealerT3;
+            dealerT4 = new Text(490,150,"");
+            dealerText[3] = dealerT4;
+            dealerT5 = new Text(635,150,"");
+            dealerText[4] = dealerT5;
+            for(int i = 0;i < 5; i++){
+                dealerText[i].setFont(new Font(70));
+                root.getChildren().addAll(dealerText[i]);
+            }
+            playerT1 = new Text(55,440,"");
+            playerText[0] = playerT1;
+            playerT2 = new Text(200,440,"");
+            playerText[1] = playerT2;
+            playerT3 = new Text(345,440,"");
+            playerText[2] = playerT3;
+            playerT4 = new Text(490,440,"");
+            playerText[3] = playerT4;
+            playerT5 = new Text(635,440,"");
+            playerText[4] = playerT5;
+            for(int i = 0;i < 5; i++){
+                playerText[i].setFont(new Font(70));
+                root.getChildren().addAll(playerText[i]);
+            }
     }
 
     public void createBottom(Group root) {
