@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -16,15 +17,16 @@ import java.util.ArrayList;
 /**
  * Class for the Blackjack game logic and GUI. Extends Application for JavaFX.
  * @author Carter Close, Luke Kedrowski
- * @version 1.8
+ * @version 3.0
  */
 public class Blackjack extends Application {
     //JavaFX elements
+    private Rectangle dealerC1, dealerC2, dealerC3, dealerC4, dealerC5;
+    private Rectangle playerC1, playerC2, playerC3, playerC4, playerC5, sideBarRect;
     private Text dealerT1, dealerT2, dealerT3, dealerT4, dealerT5, playerT1, playerT2, playerT3, playerT4, playerT5;
+    private Text resultText, escText, titleText, noteText;
     private Button hitButton, standButton;
     private TextField playerScore, dealerScore;
-    private Text resultText, escText;
-    private Rectangle dealerC1, dealerC2, dealerC3, dealerC4, dealerC5, playerC1, playerC2, playerC3, playerC4, playerC5, sideBarRect;
     private Font arial = new Font("Arial", 26);
     private Scene scene;
     private Group root;
@@ -183,7 +185,28 @@ public class Blackjack extends Application {
     public void createSideBar() {
         sideBarRect = new Rectangle(750, 0, 250, 650);
         sideBarRect.setFill(Color.web("#156183"));
-        root.getChildren().addAll(sideBarRect);
+        root.getChildren().add(sideBarRect);
+        titleText = new Text("Blackjack");
+        titleText.setFont(new Font("Arial", 40));
+        titleText.setFill(Color.WHITE);
+        titleText.setLayoutX(790);
+        titleText.setLayoutY(50);
+        root.getChildren().add(titleText);
+        noteText = new Text("Press the Hit button to get a card, and the Stand button to end your turn.\n\nDealer must draw to 16 and stands on 17.");
+        noteText.setFont(new Font("Arial", 20));
+        noteText.setFill(Color.WHITE);
+        noteText.setLayoutX(775);
+        noteText.setLayoutY(105);
+        noteText.setWrappingWidth(200);
+        root.getChildren().add(noteText);
+        Line line1 = new Line(770, 70, 980, 70);
+        line1.setStrokeWidth(3);
+        line1.setStroke(Color.WHITE);
+        Line line2 = new Line(770, 270, 980, 270);
+        line2.setStrokeWidth(3);
+        line2.setStroke(Color.WHITE);
+        root.getChildren().addAll(line1, line2);
+
     }
 
     /**
@@ -237,39 +260,36 @@ public class Blackjack extends Application {
     }
 
     /**
-     * Method for determining who wins
-     * Uses the compareTo method, the result is what decides the winner
+     * Method for determining who wins.
+     * Uses the compareTo method, the result is what decides the winner.
+     * Also adds the final text to the screen.
      * @param playerHand is the player's hand
      * @param dealerHand is the dealer's hand
      */
     public void winner(Hand playerHand, Hand dealerHand) {
         resultText = new Text("");
         if(playerHand.getValue() > 21) {
-            resultText.setText("You\nbusted!");
+            resultText.setText("You\nbusted! Press ESC to exit.");
         }
         else if(dealerHand.getValue() > 21) {
-            resultText.setText("Dealer\nbusted!");
+            resultText.setText("Dealer busted! Press ESC to exit.");
         }
         else {
             int result = playerHand.compareTo(dealerHand);
             if (result > 0) {
-                resultText.setText("You won!");
+                resultText.setText("You won! Press ESC to exit.");
             } else if (result < 0) {
-                resultText.setText("You lost!");
+                resultText.setText("You lost! Press ESC to exit.");
             } else if (result == 0) {
-                resultText.setText("You tied\nthe dealer!");
+                resultText.setText("You tied the dealer! Press ESC to exit.");
             }
         }
         resultText.setFont(Font.font("arial", 40));
         resultText.setFill(Color.WHITE);
-        resultText.setLayoutX(800);
-        resultText.setLayoutY(250);
-        escText = new Text("ESCAPE\nto exit");
-        escText.setFont(Font.font("arial", 45));
-        escText.setFill(Color.WHITE);
-        escText.setLayoutX(785);
-        escText.setLayoutY(500);
-        root.getChildren().addAll(resultText, escText);
+        resultText.setLayoutX(780);
+        resultText.setLayoutY(400);
+        resultText.setWrappingWidth(200);
+        root.getChildren().add(resultText);
         exit();
     }
 
