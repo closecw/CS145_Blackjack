@@ -30,8 +30,31 @@ public class Card {
 	/**
 	 * @return formated text description of the card
 	 */
-	public String toString() {
-		return rank.name() + " of " + suit.name();
-	}
+	public String toString(){
+        	String str;
+        	Rank rank = this.getRank();
+        	if (rank.ordinal() < 9){
+        	    str = (rank.ordinal() + 2) + "";
+        	}else{
+        	    str = rank.name().substring(0,1);
+        	}
+        	str += "\n";
+        	Suit suit = this.getSuit();
+        	switch(suit.ordinal()){
+        	    case 0:
+        	        str += '♠';
+        	        break;
+        	    case 1:
+        	        str += '♥';
+        	        break;
+        	    case 2:
+        	        str += '♦';
+        	        break;
+        	    case 3:
+        	        str += '♣';
+        	        break;
+        }
+        return str;
+    }
 
 }
