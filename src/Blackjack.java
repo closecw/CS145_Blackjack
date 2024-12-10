@@ -9,15 +9,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.text.*;
-
 import java.util.ArrayList;
 
-
 /**
-* @Author Carter Close + Luke Kedrowski
-* @Version 1.7
+ * Class for the Blackjack game logic and GUI. Extends Application for JavaFX.
+ * @author Carter Close + Luke Kedrowski
+ * @version 1.7
  */
-
 public class Blackjack extends Application {
     //JavaFX elements
     private Text dealerT1, dealerT2, dealerT3, dealerT4, dealerT5, playerT1, playerT2, playerT3, playerT4, playerT5;
@@ -35,7 +33,11 @@ public class Blackjack extends Application {
     private int hitCount = 0;
     private int dealCount = 0;
 
-
+    /**
+     * Standard JavaFX start method. Creates the root and scene, sets the stage, and calls methods for each part of the scene
+     *
+     * @param stage
+     */
     @Override
     public void start(Stage stage) {
         Group root = new Group();
@@ -51,6 +53,10 @@ public class Blackjack extends Application {
         makeDeck();
     }
 
+    /**
+     * Method to create each card for the dealer and player
+     * @param root is the root group so it can be added to the scene
+     */
     public void createCards(Group root) {
         dealerC1 = new Rectangle(25, 80, 125, 180);
         dealerC1.setFill(Color.WHITE);
@@ -75,8 +81,12 @@ public class Blackjack extends Application {
         root.getChildren().addAll(dealerC1, dealerC2, dealerC3, dealerC4, dealerC5, playerC1, playerC2, playerC3, playerC4, playerC5);
     }
 
-    public void createCardText(Group root){
-        //kinda gross but as long as set text works it'll do
+    /**
+     * Method for creating the card text that is shown each time the hit button is pressed
+     * @param root is the root group so it can be added to the scene
+     * Needs work, but as long as set text works, it'll do
+     */
+    public void createCardText(Group root) {
             dealerT1 = new Text(55,150,"");
             dealerText[0] = dealerT1;
             dealerT2 = new Text(200,150,"");
@@ -87,7 +97,7 @@ public class Blackjack extends Application {
             dealerText[3] = dealerT4;
             dealerT5 = new Text(635,150,"");
             dealerText[4] = dealerT5;
-            for(int i = 0;i < 5; i++){
+            for(int i = 0;i < 5; i++) {
                 dealerText[i].setFont(new Font(70));
                 root.getChildren().addAll(dealerText[i]);
             }
@@ -101,14 +111,18 @@ public class Blackjack extends Application {
             playerText[3] = playerT4;
             playerT5 = new Text(635,440,"");
             playerText[4] = playerT5;
-            for(int i = 0;i < 5; i++){
+            for(int i = 0;i < 5; i++) {
                 playerText[i].setFont(new Font(70));
                 root.getChildren().addAll(playerText[i]);
             }
     }
 
+    /**
+     * Method for creating the bottom area. Creates the two buttons and the score textFields
+     * Also implements ActionEvents for both buttons, which call hit()/stand() respectively
+     * @param root is the root group so it can be added to the scene
+     */
     public void createBottom(Group root) {
-        //TODO: Continuously update score shown
         hitButton = new Button("Hit");
         hitButton.setPrefSize(250, 50);
         hitButton.setStyle("-fx-background-color: #c2f1c8; ");
@@ -119,17 +133,16 @@ public class Blackjack extends Application {
         hitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                //TODO: Add action listener
-                if(!playerHand.getStand()){
+                if(!playerHand.getStand()) {
                     hit(playerHand,deck);
                 }
                 playerScore.setText("Your score: "  + playerHand.getValue());
                 
-                if(!dealerHand.getStand()){
+                if(!dealerHand.getStand()) {
                     dealerHit(dealerHand,deck);
                 }
-                dealerScore.setText("Your score: "  + dealerHand.getValue());
-                if(dealerHand.getStand()&&playerHand.getStand()){
+                dealerScore.setText("Dealer score: "  + dealerHand.getValue());
+                if(dealerHand.getStand()&&playerHand.getStand()) {
                     winner(playerHand,dealerHand);
                 }
             }
@@ -144,16 +157,15 @@ public class Blackjack extends Application {
         standButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                //TODO: Add action listener
                 playerHand.stand();
             }
         });
-        playerScore = new TextField("Your score: " /* + player.getScore()*/);
+        playerScore = new TextField("Your score: ");
         playerScore.setFont(arial);
         playerScore.setPrefSize(250, 50);
         playerScore.setLayoutX(0);
         playerScore.setLayoutY(650);
-        dealerScore = new TextField("Dealer score: "/* + dealer.getScore()*/);
+        dealerScore = new TextField("Dealer score: ");
         dealerScore.setFont(arial);
         dealerScore.setPrefSize(250, 50);
         dealerScore.setLayoutX(750);
@@ -161,6 +173,10 @@ public class Blackjack extends Application {
         root.getChildren().addAll(hitButton, standButton, playerScore, dealerScore);
     }
 
+    /**
+     * Method for creating the sidebar at the end that displays text
+     * @param root is the root group so it can be added to the scene
+     */
     public void createSideBar(Group root) {
         //TODO: Create win/lose message, again/exit buttons, event handlers
         sideBarRect = new Rectangle(750, 0, 250, 650);
@@ -168,11 +184,15 @@ public class Blackjack extends Application {
         root.getChildren().addAll(sideBarRect);
     }
 
-    // deck making code may need some tweaks but base logic works
-    public void makeDeck(){
+    /**
+     * Method for creating the deck
+     * Creates it as an ArrayList of Card objects, then adds a card for each rank of each suit
+     * Deck making code may need some tweaks but the base logic works for what we need
+     */
+    public void makeDeck() {
         this.deck = new ArrayList<Card>();
-        for(Suit s: Suit.values()){
-            for(Rank r: Rank.values()){
+        for(Suit s: Suit.values()) {
+            for(Rank r: Rank.values()) {
                 Card card = new Card(s,r);
                 deck.add(card);
             }
@@ -180,43 +200,65 @@ public class Blackjack extends Application {
         return;
     }
 
-
+    /**
+     * Method for hitting the deck when pressing the button
+     * @param hand is the player's hand that will then receive the card
+     * @param deck is the deck built in buildDeck() method
+     */
     public void hit(Hand hand,ArrayList<Card> deck) {
         Card drawn = hand.hit(deck);
-        if(drawn.getSuit().ordinal()==1||drawn.getSuit().ordinal()==2){
+        if(drawn.getSuit().ordinal()==1||drawn.getSuit().ordinal()==2) {
             playerText[hitCount].setFill(Color.RED);  
         }
         playerText[hitCount].setText(drawn.toString());
         hitCount++;
-        if(hitCount >= 5){
+        if(hitCount >= 5) {
             playerHand.stand();
         }
     }
 
+    /**
+     * Method for the dealer hitting the deck when pressing the button
+     * @param hand is the dealer's hand
+     * @param deck is the deck built in buildDeck() method
+     */
     public void dealerHit(Hand hand,ArrayList<Card> deck) {
         Card drawn = hand.hit(deck);
-        if(drawn.getSuit().ordinal()==1||drawn.getSuit().ordinal()==2){
+        if(drawn.getSuit().ordinal()==1||drawn.getSuit().ordinal()==2) {
             dealerText[dealCount].setFill(Color.RED);  
         }
         dealerText[dealCount].setText(drawn.toString());
         dealCount++;
-        if(dealCount >= 5){
+        if(dealCount >= 5) {
             dealerHand.stand();
         }
     }
 
+    /**
+     * Method for determining who wins
+     * Uses the compareTo method, the result is what decides the winner
+     * Also keeps in mind if you bust for an automatic loss
+     * @param playerHand is the player's hand
+     * @param dealerHand is the dealer's hand
+     */
     public void winner(Hand playerHand, Hand dealerHand) {
         int result = playerHand.compareTo(dealerHand);
-        if(result > 0){
+        if(result > 0) {
             //winlogic/result
-        }else if(result < 0){
+        }
+        else if(result < 0) {
             //loselogic/result
-        }else if(result == 0){
+        }
+        else if(result == 0) {
             //tie logic/results
         }
         return;
     }
 
+    /**
+     * Main method, calls the launch() method that JavaFX requires
+     * @param args allows for CLI arguments, not really needed but it's a force of habit
+     */
     public static void main(String[] args) {
         launch(args);
     }
